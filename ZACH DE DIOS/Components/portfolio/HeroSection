@@ -1,0 +1,123 @@
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ChevronDown, Github, Linkedin, Mail } from "lucide-react";
+
+export default function HeroSection() {
+  const [typedText, setTypedText] = useState("");
+  const fullText = "De Dios";
+  
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index <= fullText.length) {
+        setTypedText(fullText.slice(0, index));
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
+      {/* Animated background grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      
+      {/* Glow effects */}
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#FF6B35] rounded-full blur-[120px]"
+      />
+      <motion.div
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#F7931E] rounded-full blur-[120px]"
+      />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <h1 className="text-6xl md:text-8xl font-bold mb-6 leading-tight">
+            <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+              Zach
+            </span>
+            <br />
+            <span className="relative inline-block">
+              <span className="bg-gradient-to-r from-[#FF6B35] to-[#F7931E] bg-clip-text text-transparent">
+                {typedText}
+              </span>
+              <motion.span
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 0.8, repeat: Infinity }}
+                className="inline-block w-1 h-20 bg-[#FF6B35] ml-2"
+              />
+            </span>
+          </h1>
+
+          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+            Software Engineer crafting digital experiences where design moves with purpose
+            and visuals speak for the code. Every pixel engineered with precision.
+          </p>
+
+          <div className="flex items-center justify-center gap-6 mb-16">
+            {[
+              { icon: Github, label: "GitHub", href: "#" },
+              { icon: Linkedin, label: "LinkedIn", href: "#" },
+              { icon: Mail, label: "Email", href: "mailto:zach@dedios.dev" },
+            ].map((social, index) => (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1 + index * 0.1 }}
+                whileHover={{ scale: 1.1, y: -2 }}
+                className="group relative p-4 bg-white/5 rounded-full border border-white/10 hover:border-[#FF6B35] transition-all duration-300"
+              >
+                <social.icon className="w-6 h-6 text-gray-400 group-hover:text-[#FF6B35] transition-colors" />
+                <div className="absolute inset-0 bg-[#FF6B35] rounded-full opacity-0 group-hover:opacity-20 blur-xl transition-opacity" />
+              </motion.a>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5 }}
+          >
+            <a href="#journey" className="inline-block">
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="text-gray-400 hover:text-[#FF6B35] transition-colors"
+              >
+                <ChevronDown className="w-8 h-8" />
+              </motion.div>
+            </a>
+          </motion.div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}

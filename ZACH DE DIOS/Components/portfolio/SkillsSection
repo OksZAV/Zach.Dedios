@@ -1,0 +1,114 @@
+import React from "react";
+import { motion } from "framer-motion";
+
+export default function SkillsSection() {
+  const skillColumns = [
+    {
+      title: "Languages & Tools",
+      skills: [
+        "Python",
+        "SQL",
+        "C++",
+        "Java",
+        "TypeScript",
+        "JavaScript",
+        "Git",
+        "Postman",
+        "Docker",
+        "Firebase",
+      ],
+    },
+    {
+      title: "Frameworks & Libraries",
+      skills: [
+        "React",
+        "Node.js",
+        "Express.js",
+        "Flask",
+        "Bootstrap",
+        "jQuery",
+        "TailwindCSS",
+        "Framer Motion",
+        "GSAP",
+      ],
+    },
+    {
+      title: "Core CS Concepts",
+      skills: [
+        "DSA",
+        "DBMS",
+        "OOP",
+        "Operating Systems",
+        "System Design",
+      ],
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#0F0F0F] relative py-32 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid md:grid-cols-2 gap-20 items-center">
+          {/* Left - Title */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-7xl md:text-8xl font-bold leading-tight">
+              <div className="text-white mb-2">DEVELOPER</div>
+              <div className="text-white mb-2">DESIGNER</div>
+              <div className="text-white">CREATOR/</div>
+            </h2>
+          </motion.div>
+
+          {/* Right - Skills */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="text-right mb-12">
+              <h3 className="text-5xl md:text-6xl font-light text-gray-200">
+                Skills
+              </h3>
+            </div>
+
+            <div className="grid grid-cols-3 gap-8">
+              {skillColumns.map((column, columnIndex) => (
+                <motion.div
+                  key={column.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: columnIndex * 0.1 }}
+                  viewport={{ once: true }}
+                  className="space-y-4"
+                >
+                  <h4 className="text-xs tracking-wider text-gray-500 mb-6 font-mono">
+                    {column.title}
+                  </h4>
+
+                  <div className="space-y-3">
+                    {column.skills.map((skill, skillIndex) => (
+                      <motion.div
+                        key={skill}
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: columnIndex * 0.1 + skillIndex * 0.05 }}
+                        viewport={{ once: true }}
+                        className="text-gray-300 text-sm hover:text-[#FF6B35] transition-colors cursor-default font-mono"
+                      >
+                        {skill}
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+}

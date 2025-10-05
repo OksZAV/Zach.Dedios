@@ -1,0 +1,61 @@
+import React, { useState, useEffect } from "react";
+import { motion, useScroll } from "framer-motion";
+import HeroSection from "../components/portfolio/HeroSection";
+import JourneySection from "../components/portfolio/JourneySection";
+import ProjectsSection from "../components/portfolio/ProjectsSection";
+import SkillsSection from "../components/portfolio/SkillsSection";
+import ContactSection from "../components/portfolio/ContactSection";
+import BufferAnimation from "../components/portfolio/BufferAnimation";
+import Navigation from "../components/portfolio/Navigation";
+import Footer from "../components/portfolio/Footer";
+
+export default function Portfolio() {
+  const [isLoading, setIsLoading] = useState(true);
+  const { scrollYProgress } = useScroll();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <BufferAnimation />;
+  }
+
+  return (
+    <div className="bg-[#0A0A0A] text-white overflow-x-hidden">
+      {/* Progress bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF6B35] via-[#F7931E] to-[#FF6B35] z-50 origin-left"
+        style={{ scaleX: scrollYProgress }}
+      />
+
+      <Navigation />
+
+      <section id="hero">
+        <HeroSection />
+      </section>
+
+      <section id="journey">
+        <JourneySection />
+      </section>
+
+      <section id="projects">
+        <ProjectsSection />
+      </section>
+
+      <section id="skills">
+        <SkillsSection />
+      </section>
+
+      <section id="contact">
+        <ContactSection />
+      </section>
+
+      <Footer />
+    </div>
+  );
+}

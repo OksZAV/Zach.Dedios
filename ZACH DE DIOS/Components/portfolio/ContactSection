@@ -1,0 +1,199 @@
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Send, Mail, MapPin, Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+export default function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    
+    alert("Thank you! Your message has been sent.");
+    setFormData({ name: "", email: "", message: "" });
+    setIsSubmitting(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0A0A0A] relative py-32">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
+        >
+          <span className="text-sm tracking-[0.3em] text-gray-500 mb-4 block">
+            GET IN TOUCH
+          </span>
+          <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+              Let's Build Something
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-[#FF6B35] to-[#F7931E] bg-clip-text text-transparent">
+              Amazing Together
+            </span>
+          </h2>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-12">
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <div>
+              <h3 className="text-3xl font-bold mb-6 text-white">
+                Ready to collaborate?
+              </h3>
+              <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                Whether you have a project in mind or just want to chat about technology,
+                I'm always open to discussing new opportunities and ideas.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              {[
+                {
+                  icon: Mail,
+                  label: "Email",
+                  value: "zach@dedios.dev",
+                  link: "mailto:zach@dedios.dev",
+                },
+                {
+                  icon: MapPin,
+                  label: "Location",
+                  value: "Available Worldwide",
+                },
+                {
+                  icon: Clock,
+                  label: "Response Time",
+                  value: "Within 24 hours",
+                },
+              ].map((item, index) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="flex items-start gap-4 group"
+                >
+                  <div className="p-3 bg-white/5 rounded-lg border border-white/10 group-hover:border-[#FF6B35] transition-colors">
+                    <item.icon className="w-6 h-6 text-[#FF6B35]" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-gray-500 mb-1">{item.label}</div>
+                    {item.link ? (
+                      <a
+                        href={item.link}
+                        className="text-white font-medium hover:text-[#FF6B35] transition-colors"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <div className="text-white font-medium">{item.value}</div>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/20 to-[#F7931E]/20 rounded-2xl blur-2xl" />
+            
+            <form
+              onSubmit={handleSubmit}
+              className="relative p-8 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 space-y-6"
+            >
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Your Name
+                </label>
+                <Input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="John Doe"
+                  required
+                  className="bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-[#FF6B35]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Your Email
+                </label>
+                <Input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="john@example.com"
+                  required
+                  className="bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-[#FF6B35]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Your Message
+                </label>
+                <Textarea
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  placeholder="Tell me about your project..."
+                  required
+                  rows={5}
+                  className="bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-[#FF6B35] resize-none"
+                />
+              </div>
+
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-[#FF6B35] to-[#F7931E] hover:from-[#F7931E] hover:to-[#FF6B35] text-white font-medium py-6 rounded-xl transition-all duration-300 disabled:opacity-50"
+              >
+                {isSubmitting ? (
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  >
+                    <Send className="w-5 h-5" />
+                  </motion.div>
+                ) : (
+                  <>
+                    Send Message <Send className="w-5 h-5 ml-2" />
+                  </>
+                )}
+              </Button>
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+}

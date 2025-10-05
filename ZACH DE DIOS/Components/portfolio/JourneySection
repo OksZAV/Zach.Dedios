@@ -1,0 +1,145 @@
+import React from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+
+export default function JourneySection() {
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+
+  const services = [
+    {
+      number: "01",
+      title: "Full-Stack Development",
+      description: "Building robust, scalable applications from database to user interface. Expertise in modern frameworks and cloud architecture to deliver seamless end-to-end solutions.",
+    },
+    {
+      number: "02",
+      title: "UI/UX & Frontend",
+      description: "Crafting intuitive, visually stunning interfaces that users love. Translating designs into pixel-perfect, responsive experiences with smooth animations and interactions.",
+    },
+    {
+      number: "03",
+      title: "Optimization",
+      description: "Enhancing performance, speed, and efficiency across the stack. From database queries to bundle sizes, every millisecond matters in creating exceptional user experiences.",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#0F0F0F] relative py-32 overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,#FF6B3510,transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,#F7931E10,transparent_50%)]" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mb-24"
+        >
+          <motion.div style={{ y }}>
+            <span className="text-sm tracking-[0.3em] text-gray-500 mb-4 block">
+              WHAT I DO
+            </span>
+            <h2 className="text-5xl md:text-7xl font-bold mb-8 max-w-4xl">
+              <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                Transforming Ideas Into
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-[#FF6B35] to-[#F7931E] bg-clip-text text-transparent">
+                Digital Reality
+              </span>
+            </h2>
+          </motion.div>
+        </motion.div>
+
+        {/* Services */}
+        <div className="space-y-12">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.number}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.15, duration: 0.6 }}
+              viewport={{ once: true }}
+              className="group relative"
+            >
+              <div className="flex items-start gap-8">
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  className="text-6xl md:text-8xl font-bold bg-gradient-to-br from-[#FF6B35] to-[#F7931E] bg-clip-text text-transparent opacity-20 group-hover:opacity-40 transition-opacity"
+                >
+                  {service.number}
+                </motion.div>
+
+                <div className="flex-1 pt-4">
+                  <h3 className="text-3xl md:text-4xl font-bold mb-4 text-white group-hover:text-[#FF6B35] transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-lg text-gray-400 leading-relaxed max-w-2xl">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
+
+              {/* Divider */}
+              {index < services.length - 1 && (
+                <div className="mt-12 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+              )}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* About section with image */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          viewport={{ once: true }}
+          className="mt-32 grid md:grid-cols-2 gap-12 items-center"
+        >
+          {/* Image */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/20 to-[#F7931E]/20 rounded-2xl blur-2xl" />
+            <img
+              src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&q=80"
+              alt="Zach De Dios"
+              className="relative rounded-2xl w-full h-[500px] object-cover border border-white/10"
+            />
+          </motion.div>
+
+          {/* Text */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+            <div className="text-sm tracking-[0.2em] text-gray-500">
+              (ABOUT ME)
+            </div>
+            
+            <h3 className="text-3xl md:text-4xl font-light text-gray-200 leading-relaxed">
+              I'm a software engineer driven by a passion for turning ideas into clean, intuitive digital experiences.
+            </h3>
+
+            <p className="text-gray-400 leading-relaxed">
+              I am a passionate Software Engineer with a knack for building full-stack web applications using modern technologies like Next.js and Tailwind CSS. My journey in tech began with a curiosity for solving real-world problems through innovative solutions, which evolved into a love for crafting user-centric digital experiences.
+            </p>
+
+            <p className="text-gray-400 leading-relaxed">
+              Beyond coding, I thrive in collaborative environments and enjoy tackling challenging problems with creative solutions. I aim to contribute to impactful projects that make a difference in users' lives.
+            </p>
+          </motion.div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}

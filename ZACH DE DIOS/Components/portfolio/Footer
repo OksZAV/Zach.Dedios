@@ -1,0 +1,89 @@
+import React, { useState, useEffect } from "react";
+import { ArrowUp } from "lucide-react";
+
+export default function Footer() {
+  const [localTime, setLocalTime] = useState("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+        timeZone: "America/Los_Angeles",
+      });
+      const timezone = "PST";
+      setLocalTime(`${timeString}, ${timezone}`);
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <footer className="bg-[#E8E5DD] text-black py-12 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid md:grid-cols-3 gap-12">
+          {/* Menu Column */}
+          <div>
+            <h3 className="text-xs tracking-wider mb-6 font-medium">Menu</h3>
+            <ul className="space-y-3">
+              {["Home", "Services", "Works", "About", "Contact"].map((item) => (
+                <li key={item}>
+                  <a
+                    href={`#${item.toLowerCase()}`}
+                    className="text-sm text-gray-700 hover:text-[#FF6B35] transition-colors"
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Socials Column */}
+          <div>
+            <h3 className="text-xs tracking-wider mb-6 font-medium">Socials</h3>
+            <ul className="space-y-3">
+              {[
+                { name: "LinkedIn", href: "#" },
+                { name: "Instagram", href: "#" },
+                { name: "Github", href: "#" },
+              ].map((social) => (
+                <li key={social.name}>
+                  <a
+                    href={social.href}
+                    className="text-sm text-gray-700 hover:text-[#FF6B35] transition-colors"
+                  >
+                    {social.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Local Time Column */}
+          <div>
+            <h3 className="text-xs tracking-wider mb-6 font-medium">LOCAL TIME</h3>
+            <p className="text-sm text-gray-700 font-mono">{localTime}</p>
+          </div>
+        </div>
+
+        {/* Scroll to Top Button */}
+        <button
+          onClick={scrollToTop}
+          className="absolute bottom-12 right-6 p-4 bg-[#3A3A3A] rounded-full hover:bg-[#4A4A4A] transition-colors"
+        >
+          <ArrowUp className="w-5 h-5 text-white" />
+        </button>
+      </div>
+    </footer>
+  );
+}
