@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Portfolio</title>
+
+  <!-- Link to CSS (e.g., for animations, colors, etc.) -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- You can include Framer Motion JS if you're using animation libraries (this would be done through a CDN) -->
+  <script src="https://unpkg.com/framer-motion"></script>
+</head>
+<body class="bg-[#0A0A0A] text-white overflow-x-hidden">
+
+  <!-- Progress Bar -->
+  <div class="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF6B35] via-[#F7931E] to-[#FF6B35] z-50" id="progress-bar"></div>
+
+  <!-- Navigation -->
+  <nav id="navigation">
+    <!-- Add your navigation links here -->
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <!-- Your HeroSection content here -->
+    <h1>Welcome to My Portfolio</h1>
+    <p>I'm a passionate developer</p>
+  </section>
+
+  <!-- Journey Section -->
+  <section id="journey">
+    <!-- Your JourneySection content here -->
+    <h2>My Journey</h2>
+    <p>Learn about my development journey and experiences.</p>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <!-- Your ProjectsSection content here -->
+    <h2>My Projects</h2>
+    <p>Check out the amazing projects I've worked on!</p>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <!-- Your SkillsSection content here -->
+    <h2>My Skills</h2>
+    <p>These are the technologies I excel in:</p>
+    <ul>
+      <li>JavaScript</li>
+      <li>React</li>
+      <li>CSS</li>
+      <li>Node.js</li>
+      <!-- Add more skills -->
+    </ul>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <!-- Your ContactSection content here -->
+    <h2>Contact Me</h2>
+    <p>If you'd like to get in touch, feel free to reach out!</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <!-- Footer content here -->
+    <p>&copy; 2025 Your Name</p>
+  </footer>
+
+  <script>
+    // Optional: Add JavaScript for animations or scroll progress
+    window.addEventListener('scroll', function () {
+      const scrollProgress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      document.getElementById('progress-bar').style.width = scrollProgress + '%';
+    });
+  </script>
+
+</body>
+</html>
